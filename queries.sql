@@ -40,8 +40,21 @@ employee number, last name, first name, and department name.*/
 -- departmetns: dept_no, dept_name
 -- employees: emp_no, emp_last_name/first_name
 -- Need to join employees with dept_emp on emp_no, then w depts on dept_no (inner join?)
-select employees.emp_no, employees.last_name, employees.first_name, departments.
 
+select employees.emp_no, employees.last_name, employees.first_name, dept_emp.dept_no, departments.dept_name
+from employees
+full outer join dept_emp on employees.emp_no = dept_emp.emp_no
+right join departments on dept_emp.dept_no
+
+select employees.emp_no, employees.last_name, employees.first_name, dept_emp.emp_no, dept_emp.dept_no, departments.dept_name
+from employees
+right join dept_emp on employees.emp_no=dept_emp.emp_no  
+
+
+select departments.dept_name, dept_emp.emp_no, employees.first_name, employees.last_name
+from departments
+inner join dept_emp on departments.dept_no=dept_emp.dept_no
+left join employees on dept_emp.emp_no=employees.emp_no
 
 
 
