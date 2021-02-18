@@ -22,26 +22,40 @@ from employees
 where hire_date between '1986-01-01' and '1986-12-31'
 
 /* 3. List the manager of each department with the following information: 
-department number, 
-department name, the manager's employee number, 
+department number, department name, the manager's employee number, 
 last name, first name.*/
 select * from dept_manager -- Need dept_no and emp_no from dept_manager 
 select * from departments -- Need dept_no and dept_name from departments
 select * from employees -- Need emp_no, first_name, last_name from employees
+select * from dept_emp
+
+select departments.dept_no, departments.dept_name, dept_manager.emp_no, employees.last_name, employees.first_name
+from departments
+full outer join dept_manager on departments.dept_no=dept_manager.dept_no
+right join employees on dept_manager.emp_no= employees.emp_no
+
+/*4. List the department of each employee with the following information: 
+employee number, last name, first name, and department name.*/
+-- dept_emp: emp_no, dept_no
+-- departmetns: dept_no, dept_name
+-- employees: emp_no, emp_last_name/first_name
+-- Need to join employees with dept_emp on emp_no, then w depts on dept_no (inner join?)
+select employees.emp_no, employees.last_name, employees.first_name, departments.
+
+
+
+
+/*
+
 
 -- Departments columns: dept_no, dept_name
 -- dept_manager columns: dept_no, emp_no
 -- employees: emp_no, first_name, last_name
 -- Need to do the departments file first, all the info, full outer join with
 -- dept_manager, right join (?) with employees? 
-
-
-select departments.dept_no, departments.dept_name, dept_manager.emp_no
-from departments
-full outer join dept_manager on departments.dept_no=dept_manager.dept_no
-
 select departments.dept_no, departments.dept_name from departments full outer join dept_manager on 
 departments.dept_no = dept_manager.emp_no
+
 
 
 select departments.* from departments
