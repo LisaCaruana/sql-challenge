@@ -51,11 +51,152 @@ first name is "Hercules" and last names begin with "B."*/
 select first_name, last_name, sex
 from employees
 where first_name = 'Hercules' AND last_name like 'B%'
-		
 
+/*6. 6. List all employees in the Sales department, 
+including their employee number, last name, first name, and department name.*/
+
+select * from departments   -- dept_no, dept_name
+select * from dept_emp --emp_no, dept_no
+select * from employees  --emp_no, last_name, first_name 
+
+
+select  departments.dept_name, dept_emp.emp_no, employees.last_name, employees.first_name
+from employees
+inner join dept_emp 
+on dept_emp.emp_no = employees.emp_no
+inner join departments
+on departments.dept_no = dept_emp.dept_no
+where departments.dept_name = 'Sales'
+
+/*7. List all employees in the Sales and Development departments, 
+including their employee number, last name, first name, and department name.*/
+select  departments.dept_name, dept_emp.emp_no, employees.last_name, employees.first_name
+from employees
+inner join dept_emp 
+on dept_emp.emp_no = employees.emp_no
+inner join departments
+on departments.dept_no = dept_emp.dept_no
+where departments.dept_name in 'Sales' or 'Development'
+
+
+
+where departments.dept_name = 'Development'
+
+	
 /*
+INCORRECT CODE
 
-select employees.emp_no, employees.last_name, employees.first_name, dept_emp.dept_no, departments.dept_name
+(departments inner join 
+ 
+ 
+ 
+ 
+ dept_emp on departments.dept_no where departments.dept_name = 'Sales')
+
+
+SELECT Orders.OrderID, Customers.CustomerName, Shippers.ShipperName
+FROM ((Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)
+INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);
+
+
+
+
+
+where dept_name in
+	(
+	select dept_name
+	from departments
+	where dept_name ="Sales"
+	(
+	select dept_no from departments)
+	UNION ALL
+
+		
+select departments.dept_name, dept_emp.emp_no, employees.last_name, employees.first_name
+
+select departments.dept_name, dept_emp.emp_no		
+from departments
+right join dept_emp
+on dept_emp.dept_no 
+where departments.dept_name = 'Sales'
+
+select departments.dept_name, dept_emp.emp_no, employees.last_name, employees.first_name
+from employees
+where emp_id in
+		(
+		select emp_id
+		from dept_emp
+		where dept_emp.dept_no in
+			(
+			select dept_no
+			from departments
+			where departments.dept_name = 'Sales'
+			)
+		);
+
+		
+select departments.dept_name, dept_emp.emp_no, employees.last_name, employees.first_name  
+from employees
+where emp_id in
+		(
+		select emp_id
+		from dept_emp
+		where dept_no in
+		(
+		
+				
+select dept_no
+from departments
+where departments.dept_name = 'Sales'
+		(
+		select dept_no
+		from dept_emp
+		where dept_no in
+		)
+
+		
+		
+		
+		
+select departments.dept_name, dept_emp.emp_no, employees.last_name, employees.first_name
+from departments
+where dept_name = 'Sales'
+		(
+		select dept_no
+		from departments
+		where dept_no in
+			(
+			select dept_no
+			in dept_emp
+			where emp_no in
+				(
+				select emp_no 
+				in employees)))
+		
+		
+		
+(
+select dept_name
+from departments
+where dept_name = 'Sales'	
+(
+	left join dept_emp on departments.dept_no=dept_emp.dept_no
+	
+	)
+	
+select departments.dept_name, dept_emp.emp_no, employees.last_name, employees.first_name
+from departments
+
+select departments.dept_no
+from departments
+where dept_name = 'Sales'
+
+
+
+
+select departments.dept_name, dept_emp.emp_no, employees.last_name, employees.first_name
+	select employees.emp_no, employees.last_name, employees.first_name, dept_emp.dept_no, departments.dept_name
 from employees
 full outer join dept_emp on employees.emp_no = dept_emp.emp_no
 right join departments on dept_emp.dept_no
