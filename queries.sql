@@ -1,33 +1,20 @@
-/*select rental_duration, avg(rental_rate)
-from film
-group by rental_duration
-order by rental_duration
+/*1. List the following details of each employee: employee number, last name, first name, sex, and salary. */
+-- Join the employees and salaries table on employee number
 
-
-select inventory.*, film.title 
-from inventory
-join film
-on inventory.film_id=film.film_id
-where film.title= 'Early Home'
-
-
-1. List the following details of each employee: employee number, last name, first name, sex, and salary. */
 select employees.emp_no, employees.last_name, employees.first_name, employees.sex, salaries.salary
 from employees
 join salaries on employees.emp_no= salaries.emp_no;
 
 /*2. List first name, last name, and hire date for employees who were hired in 1986.*/
+-- Pull employees from the hired_date column in the "employees" table with a start date between 1/1/1986 and 12/31/1986 
+
 select first_name, last_name, hire_date as "1986 Hires"
 from employees
-where hire_date between '1986-01-01' and '1986-12-31'
+where hire_date between '1986-01-01' and '1986-12-31';
 
 /* 3. List the manager of each department with the following information: 
-department number, department name, the manager's employee number, 
-last name, first name.*/
-select * from dept_manager -- Need dept_no and emp_no from dept_manager 
-select * from departments -- Need dept_no and dept_name from departments
-select * from employees -- Need emp_no, first_name, last_name from employees
-select * from dept_emp
+department number, department name, the manager's employee number, last name, first name.*/
+-- Join the departments table with the dept_manager table on dept_no, then join the dept_manager table with the employees table on emp_no 
 
 select departments.dept_no, departments.dept_name, dept_manager.emp_no, employees.last_name, employees.first_name
 from departments
@@ -36,17 +23,16 @@ right join employees on dept_manager.emp_no= employees.emp_no
 
 /*4. List the department of each employee with the following information: 
 employee number, last name, first name, and department name.*/
--- dept_emp: emp_no, dept_no
--- departments: dept_no, dept_name
--- employees: emp_no, emp_last_name/first_name
--- Need to join employees with dept_emp on emp_no, then w depts on dept_no (inner join?)
-select departments.dept_name, dept_emp.emp_no, employees.first_name, employees.last_name
+-- Need to join employees with dept_emp on emp_no, then join w depts on dept_no 
+
+select dept_emp.emp_no, employees.last_name, employees.first_name, departments.dept_name 
 from departments
 inner join dept_emp on departments.dept_no=dept_emp.dept_no
 left join employees on dept_emp.emp_no=employees.emp_no
 
 /*5. List first name, last name, and sex for employees whose 
 first name is "Hercules" and last names begin with "B."*/
+-- Need to locate all employees named "Hercules" and then select employees with last name starting in "B"
 
 select first_name, last_name, sex
 from employees
@@ -76,20 +62,32 @@ where
 	(departments.dept_name = 'Sales'
 	 or departments.dept_name = 'Development')
 
+
+/*8. In descending order, list the frequency count of employee 
+last names, i.e., how many employees share each last name.*/
+
+select employees.last_name, count(employees.last_name) as "Employee_Last_Name_Count"
+from employees
+group by last_name
+order by "Employee_Last_Name_Count" desc
+
+
+/*
+INCORRECT/UNUSED CODE
+
 select * from departments   -- dept_no, dept_name
 select * from dept_emp --emp_no, dept_no
 select * from employees  --emp_no, last_name, first_name 
-	
-/*
-INCORRECT CODE
-
 
 
 full outer join departments
 on departments.dept_no = dept_emp.dept_no
 where departments.dept_name = 'Development'
 	
-	
+-- dept_emp: emp_no, dept_no
+-- departments: dept_no, dept_name
+-- employees: emp_no, emp_last_name/first_name
+(inner join?)	
 	
 	select departments.dept_no
 	from departments
@@ -488,3 +486,15 @@ where employees.first_name in
 			where last_name like 'B%'
 		)
 	);
+	
+	/*select rental_duration, avg(rental_rate)
+from film
+group by rental_duration
+order by rental_duration
+
+
+select inventory.*, film.title 
+from inventory
+join film
+on inventory.film_id=film.film_id
+where film.title= 'Early Home'
