@@ -55,11 +55,6 @@ where first_name = 'Hercules' AND last_name like 'B%'
 /*6. 6. List all employees in the Sales department, 
 including their employee number, last name, first name, and department name.*/
 
-select * from departments   -- dept_no, dept_name
-select * from dept_emp --emp_no, dept_no
-select * from employees  --emp_no, last_name, first_name 
-
-
 select  departments.dept_name, dept_emp.emp_no, employees.last_name, employees.first_name
 from employees
 inner join dept_emp 
@@ -70,22 +65,53 @@ where departments.dept_name = 'Sales'
 
 /*7. List all employees in the Sales and Development departments, 
 including their employee number, last name, first name, and department name.*/
+
 select  departments.dept_name, dept_emp.emp_no, employees.last_name, employees.first_name
 from employees
 inner join dept_emp 
 on dept_emp.emp_no = employees.emp_no
 inner join departments
 on departments.dept_no = dept_emp.dept_no
-where departments.dept_name in 'Sales' or 'Development'
+where 
+	(departments.dept_name = 'Sales'
+	 or departments.dept_name = 'Development')
 
-
-
-where departments.dept_name = 'Development'
-
+select * from departments   -- dept_no, dept_name
+select * from dept_emp --emp_no, dept_no
+select * from employees  --emp_no, last_name, first_name 
 	
 /*
 INCORRECT CODE
 
+
+
+full outer join departments
+on departments.dept_no = dept_emp.dept_no
+where departments.dept_name = 'Development'
+	
+	
+	
+	select departments.dept_no
+	from departments
+	where departments.dept_name = 'Sales' 
+	
+	
+		
+	select departments.dept_no
+	from departments
+	where departments.dept_name ='Development'
+		)
+	
+	
+	
+	
+	)
+)
+UNION ALL
+
+
+
+where departments.dept_name = 'Development'
 (departments inner join 
  
  
